@@ -1,0 +1,25 @@
+{% extends "store/main.html" %}
+{% load static %}
+<title>Store</title>
+
+{% block content %}
+    <div class="conainer py-4">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-4 mb-2">
+                <div class="card" style="width: 18rem;">
+                    <img style="height: 20rem;"  src="{{product.image.url}}" class="card-img-top" alt="{{product.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <button data-product={{product.id}} data-action="add" class="update-cart btn btn-outline-secondary text-dark">Add to Cart</button>
+                        <a href="#" class="btn btn-outline-success text-dark">View</a>
+                        <h5 class="text-muted" style="display:inline-block;">$.{{product.price|floatformat:2}}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

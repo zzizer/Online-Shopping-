@@ -1,0 +1,45 @@
+{% extends "accounts/alerts.html" %}
+{% load static %}
+<title>Register With Us</title>
+
+<body>
+    {% block content %}
+    <div class="center">
+        <h1>Create an account</h1>
+        <form action="signup" method="post">
+            {% csrf_token %}
+            <div class="text_field">
+                <input type="text" name="username" required>
+                <label>Username</label>
+                <span></span>
+            </div>
+            <div class="text_field">
+                <input type="text" name="fname" required>
+                <label>First name</label>
+                <span></span>
+            </div>
+            <div class="text_field">
+                <input type="text" name="surname" required>
+                <label>Surname</label>
+                <span></span>
+            </div>
+            <div class="text_field">
+                <input type="password" name="pass1" required>
+                <label>Password</label>
+                <span></span>
+            </div>
+            
+
+            <input type="submit" value="Register">
+
+            <div class="signup_link">
+                Already a member
+                <a href="{% url 'signin' %}">Login</a>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
+    
+</body>
+
+</html>

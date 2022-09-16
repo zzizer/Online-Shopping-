@@ -1,0 +1,110 @@
+{% extends "store/main.html" %}
+{% load static %}
+<title>Checkout</title>
+
+{% block content %}
+<div class="container py-5" style="background-color:white;">
+    <form id="form">
+        <div class="row">
+            <div class="col-lg-6 bg-light py-3">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Name">
+                            <label for="floatingInput">Name</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                <div id="shipping-info">
+                    <h4>Shipping Information:</h4>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Name">
+                                <label for="floatingInput">Address</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Name">
+                                <label for="floatingInput">City...</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Name">
+                                <label for="floatingInput">State</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Name">
+                                <label for="floatingInput">Zip-Code...</label>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+                
+            </div>
+            <br>
+            <input type="submit" id="form-button" class="btn btn-success" value="Continue">
+            <hr>    
+            <br>
+
+            <div id="payment-info" class="box-element hidden">
+                <small>Paypal Options</small>
+            </div>
+        </div>
+    
+            <div class="col-lg-6 bg-light py-3">
+                <a class="btn btn-outline-success text-dark px-4" href="{% url 'cart' %}"> Back to Cart</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for item in items %}
+                <div class="cart-row">
+                    <div style="flex: 2;"><img class="row-image" src="{{item.product.imageURL}}" alt=""></div>
+                    <div style="flex: 2;">{{item.product.name}}</div>
+                    <div style="flex: 1;">$.{{item.product.price}}</div>
+                    <div style="flex: 1;">{{item.quantity}}</div>
+                </div>
+                {% endfor %}
+                <h4>Items: {{order.get_cart_items}}</h4>
+                <h4>Total: $. {{order.get_cart_total|floatformat:2}}</h4>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var shipping ='{{order.shipping}}'
+
+    if (shipping == 'False'){
+        document.getElementById('shipping-info').innerHTML=''
+    }
+
+    var form = document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        console.log('Form Submitted...')
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+    })
+
+</script>
+
+{% endblock %}
